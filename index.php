@@ -13,6 +13,11 @@
 	<?php
 	 $imageHeight = 800;
 	 $imageWidth = $imageHeight;
+	 $imageColumns = 2;
+	 $activeColumn = 0;
+	 $reso = $imageWidth / $imageColumns / 8;
+
+
 	 $data = array();
  	 $file = fopen("filetest.csv","r");
  	 while (! feof($file)) {
@@ -21,8 +26,7 @@
 	 fclose($file);
 	?>
 	<?php
-
-	  $png_image = imagecreate(800, 800);
+	  $png_image = imagecreate($imageWidth, $imageHeight);
 	    imagecolorallocate($png_image, 0, 0, 0);//black background for beginning
 	    $colorArray = array(
 	    	imagecolorallocate($png_image, 0x00, 0x33, 0xCC), //darkblue
@@ -37,14 +41,22 @@
 
 	    //fill in stuff
 	    $cChooser = $data[0][0];
-	    for ($i=0; $i < 16; $i++) { 
-	    	$currarray = $data[i];
+	     $activeColumn = 0;
+	     $yPos = 0;
+	     $xOffset = 0;
+	    for ($i=0; $i < ($imageHeight / $reso * $imageColumns) ; $i++) { 
+	    	   
+	    	if ($yPos > ($imageHeight / $reso)-1) {
+	    		$yPos=0;
+	    		$xOffset+=($imageWidth/$imageColumns);
+	    		print_r("triggered");
+	    	}
 	    	for ($j=1; $j < 9; $j++) { 
 	    		$cChooser = ($data[$i][$j] - $data[$i][0])/2;
-	    		imagefilledrectangle($png_image, ($j-1)*50, $i*50, $j*50, $i*50+50, $colorArray[$cChooser] );	    	
+	    		imagefilledrectangle($png_image, ($j-1)*$reso+$xOffset, $yPos*$reso, $j*$reso+$xOffset, $yPos*$reso+$reso, $colorArray[$cChooser] );	    	
 	    	}
+ 			$yPos++;
 	    }
-
 
 	    //end of filling in stuff
 	  $path_image = 'saved-example.png';
