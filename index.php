@@ -49,7 +49,6 @@
 	    	if ($yPos > ($imageHeight / $reso)-1) {
 	    		$yPos=0;
 	    		$xOffset+=($imageWidth/$imageColumns);
-	    		print_r("triggered");
 	    	}
 	    	for ($j=1; $j < 9; $j++) { 
 	    		$cChooser = ($data[$i][$j] - $data[$i][0])/2;
@@ -68,4 +67,3 @@
 </body>
 
 </html>
-bgr
