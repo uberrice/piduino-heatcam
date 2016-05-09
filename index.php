@@ -11,6 +11,8 @@
 	Hello world!
 	
 	<?php
+	 $imageHeight = 800;
+	 $imageWidth = $imageHeight;
 	 $data = array();
  	 $file = fopen("filetest.csv","r");
  	 while (! feof($file)) {
