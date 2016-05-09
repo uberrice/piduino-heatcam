@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF8">
-	<title>HeatCam</title>
+	<title>HeatCam2</title>
 </head>
 
 
