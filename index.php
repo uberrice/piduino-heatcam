@@ -8,8 +8,12 @@
 
 
 <body>
-	Hello world!
-	
+	Hello world!<br>
+
+	<form action="cgi-bin/riid.cgi">
+	<input type="submit" value="read">
+	</form>
+
 	<?php
 	 $imageHeight = 800;
 	 $imageWidth = $imageHeight;
@@ -19,7 +23,7 @@
 
 
 	 $data = array();
- 	 $file = fopen("filetest.csv","r");
+ 	 $file = fopen("cgi-bin/filetest.csv","r");
  	 while (! feof($file)) {
  	 	 array_push( $data , fgetcsv($file) );
  	 }	
@@ -32,8 +36,12 @@
 	    	imagecolorallocate($png_image, 0x00, 0x33, 0xCC), //darkblue
 	    	imagecolorallocate($png_image, 0x99, 0x00, 0x99), //dviolet
 	    	imagecolorallocate($png_image, 0xCC, 0x00, 0x66), //violet
+		imagecolorallocate($png_image, 0x00, 0x99, 0x00), //dgreen
+		imagecolorallocate($png_image, 0x00, 0xB3, 0x00), //green
 	    	imagecolorallocate($png_image, 0xCC, 0x00, 0x00), //red
+		imagecolorallocate($png_image, 0xFF, 0x33, 0x33), //lred
 	    	imagecolorallocate($png_image, 0xE6, 0x5C, 0x00), //orange
+		imagecolorallocate($png_image, 0xFF, 0x94, 0x4D), //lorange
 	    	imagecolorallocate($png_image, 0xFF, 0xFF, 0x00), //yellow
 	    	imagecolorallocate($png_image, 0xFF, 0xFF, 0xDD), //lyellow
 	    	imagecolorallocate($png_image, 0xFF, 0xFF, 0xFF)  //white
@@ -51,7 +59,10 @@
 	    		$xOffset+=($imageWidth/$imageColumns);
 	    	}
 	    	for ($j=1; $j < 9; $j++) { 
-	    		$cChooser = ($data[$i][$j] - $data[$i][0])/2;
+	    		$cChooser = ($data[$i][$j] - $data[$i][0])/3;
+			if ($cChooser > 11){
+				$cChooser = 11;
+			}
 	    		imagefilledrectangle($png_image, ($j-1)*$reso+$xOffset, $yPos*$reso, $j*$reso+$xOffset, $yPos*$reso+$reso, $colorArray[$cChooser] );	    	
 	    	}
  			$yPos++;
